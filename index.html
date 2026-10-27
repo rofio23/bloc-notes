@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carnet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    /* Applique le thème avant l'affichage pour éviter le flash */
+    (function () {
+      try {
+        var m = localStorage.getItem('carnet.theme') || 'auto';
+        var dark = m === 'dark' || (m === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <div class="app" id="app" data-view="list">
+
+    <aside class="sidebar">
+      <header class="side-head">
+        <h1>Carnet</h1>
+        <button class="btn-primary" id="newBtn" type="button">Nouvelle note</button>
+      </header>
+
+      <div class="search">
+        <input id="search" type="search" placeholder="Rechercher une note" aria-label="Rechercher une note">
+      </div>
+
+      <ul class="list" id="list"></ul>
+
+      <footer class="side-foot">
+        <div class="theme" id="theme" role="radiogroup" aria-label="Apparence">
+          <button type="button" role="radio" data-mode="light">Clair</button>
+          <button type="button" role="radio" data-mode="dark">Sombre</button>
+          <button type="button" role="radio" data-mode="auto">Auto</button>
+        </div>
+      </footer>
+    </aside>
+
+    <main class="editor">
+      <button class="back" id="backBtn" type="button">‹ Mes notes</button>
+
+      <div class="empty" id="empty">
+        <p class="empty-title">Aucune note ouverte</p>
+        <p>Choisissez une note dans la liste ou créez-en une nouvelle.</p>
+        <button class="btn-primary" id="emptyNew" type="button">Nouvelle note</button>
+      </div>
+
+      <article class="pane" id="pane" hidden>
+        <input class="title" id="title" type="text" placeholder="Titre" aria-label="Titre de la note" autocomplete="off">
+        <div class="meta">
+          <span id="meta"></span>
+          <button class="btn-ghost" id="delBtn" type="button">Supprimer</button>
+        </div>
+        <textarea class="body" id="body" placeholder="Écrivez ici…" aria-label="Contenu de la note"></textarea>
+      </article>
+    </main>
+
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+
